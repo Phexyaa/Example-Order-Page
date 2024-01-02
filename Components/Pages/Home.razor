@@ -1,0 +1,78 @@
+﻿@page "/"
+
+<section class="banner">
+    <h1 class="title">Ice Cream of the Month</h1>
+    <p class="description">Make your selections below for you monthly dessert shipment</p>
+</section>
+<form id="survey-form">
+    <fieldset class="details-area">
+        <label id="name-label" for="name">
+            Name:
+            <input id="name" name="name" type="text" required />
+        </label>
+        <label id="email-label" for="email">
+            Email:
+            <input id="email" name="email" type="email" required />
+        </label>
+        <label id="number-label" for="number">
+            Telephone Number:
+            <input onwheel="this.blur()" id="number" name="number" type="number" required min="9" max="9" />
+        </label>
+    </fieldset>
+    <fieldset class="flavor-selection-area">
+        <div class="flavor-selector">
+            <label id="dropdown-label" for="dropdown">
+                <select id="dropdown" name="dropdown" @bind="selectedOption">
+                    <option value="">
+                        Container
+                    </option>
+                    <option value="left">
+                        Bowl
+                    </option>
+                    <option value="right">
+                        Cone
+                    </option>
+                </select>
+            </label>
+            @foreach (var option in ImageHelper.ImageFilePaths)
+            {
+                <label id="ice-cream-label">
+                    <input id="strawberry" name="ice-cream" type="radio" value="strawberry" checked />
+                    Strawberry
+                    <input id="vanilla" name="ice-cream" type="radio" value="vanilla" />
+                    Vanilla
+                    <input id="pisatchio" name="ice-cream" type="radio" value="pistachio" />
+                    Pistachio
+                    <input id="chocolate" name="ice-cream" type="radio" value="chocolate" />
+                    Chocolate
+                </label>
+            }
+        </div>
+    </fieldset>
+    <fieldset class="addon-selection-area">
+        <label id="snackfood-label">
+            <input id="potato-chips" name="potato-chips" type="checkbox" value="potatoChips" />
+            Potato Chips
+            <input id="rice-cakes" name="rice-cakes" type="checkbox" value="riceCakes" />
+            Rice Cakes
+            <input id="cookies" name="cookies" type="checkbox" value="cookies" />
+            Cookies
+        </label>
+    </fieldset>
+    <fieldset class="comments-area">
+        <div class="comments-group">
+            <label id="comments-label" for="comments">
+                Questions/Comments:
+            </label>
+            <textarea class="comments" name="comments"></textarea>
+        </div>
+    </fieldset>
+    <fieldset>
+        <button class="submit" type="submit">Place Order</button>
+    </fieldset>
+</form>
+
+@code {
+
+
+            }

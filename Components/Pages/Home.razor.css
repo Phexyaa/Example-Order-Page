@@ -1,0 +1,56 @@
+﻿fieldset {
+    display:flex;
+    padding: 2rem;
+    justify-content:center;
+}
+
+label {
+    font-size: 1.5rem;
+    /*TODO Skinny font*/
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button, input[type=number] {
+    /* Chrome */
+    -webkit-appearance: none;
+    /* Firefox */
+    -moz-appearance: textfield;
+}
+.banner{
+    display:flex;
+    flex-direction: column;
+    text-align:center;
+    gap: 1rem;
+    padding: 1rem;
+}
+.title{
+    font-size: 3rem;
+}
+.description{
+    font-size: 2rem;
+}
+.details-area{
+    display: flex;
+    gap: 2rem;
+}
+.container-selector{
+
+}
+.flavor-selection-area{
+
+}
+.addon-selection-area{
+
+}
+.comments-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.comments{
+    height: 7rem;
+    width: 60vw;
+}
+.submit{
+    width: 12rem;
+    height: 3rem;
+}
