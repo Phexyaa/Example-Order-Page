@@ -22,31 +22,31 @@
     <fieldset class="flavor-selection-area">
         <div class="flavor-selector">
             <label id="dropdown-label" for="dropdown">
-                <select id="dropdown" name="dropdown" @bind="selectedOption">
-                    <option value="">
-                        Container
-                    </option>
-                    <option value="left">
+                <select id="dropdown" name="dropdown" @bind="selectedContainerType">
+                    <option value="@ContainerType.Bowl">
                         Bowl
                     </option>
-                    <option value="right">
+                    <option value="@ContainerType.Cone">
                         Cone
                     </option>
                 </select>
             </label>
-            @foreach (var option in ImageHelper.ImageFilePaths)
-            {
-                <label id="ice-cream-label">
-                    <input id="strawberry" name="ice-cream" type="radio" value="strawberry" checked />
-                    Strawberry
-                    <input id="vanilla" name="ice-cream" type="radio" value="vanilla" />
-                    Vanilla
-                    <input id="pisatchio" name="ice-cream" type="radio" value="pistachio" />
-                    Pistachio
-                    <input id="chocolate" name="ice-cream" type="radio" value="chocolate" />
-                    Chocolate
-                </label>
-            }
+            <label id="ice-cream-label">
+                <input id="strawberry" name="ice-cream" type="radio" value="strawberry" checked />
+                @switch (selectedContainerType)
+                {
+                    case ContainerType.Bowl:
+                        foreach (var bowl in MenuItemImageHelper.BowlImages)
+                        {
+                            <img
+                        }
+                        break;
+                    case ContainerType.Cone:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(selectedContainerType));
+                }
+            </label>
         </div>
     </fieldset>
     <fieldset class="addon-selection-area">
@@ -73,6 +73,10 @@
 </form>
 
 @code {
+    private ContainerType selectedContainerType = ContainerType.Cone;
 
+    private void ParseMenuImageName()
+    {
 
-            }
+    }
+}

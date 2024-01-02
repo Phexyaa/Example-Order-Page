@@ -1,12 +1,8 @@
 ﻿ public enum IceCreamType
 {
-    VanillaCone,
-    VanillaBowl,
-    StrawberyyCone,
-    StrawberryBowl,
-    ChocolateCone,
-    ChocolateBowl,
-    PistachioCone,
-    PistachioBowl,
+    Vanilla,
+    Strawberry,
+    Chocolate,
+    Pistachio,
 }
 
