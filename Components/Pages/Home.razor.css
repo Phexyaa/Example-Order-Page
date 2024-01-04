@@ -1,9 +1,12 @@
-﻿fieldset {
+﻿form{
+    min-width: 80vw;
+}
+fieldset {
     display:flex;
     padding: 2rem;
     justify-content:center;
+    border: none;
 }
-
 label {
     font-size: 1.5rem;
     /*TODO Skinny font*/
@@ -15,10 +18,10 @@ input::-webkit-inner-spin-button, input[type=number] {
     /* Firefox */
     -moz-appearance: textfield;
 }
-.banner{
-    display:flex;
+.banner {
+    display: flex;
     flex-direction: column;
-    text-align:center;
+    text-align: center;
     gap: 1rem;
     padding: 1rem;
 }
@@ -27,18 +30,23 @@ input::-webkit-inner-spin-button, input[type=number] {
 }
 .description{
     font-size: 2rem;
+    white-space: nowrap;
 }
 .details-area{
     display: flex;
     gap: 2rem;
 }
-.container-selector{
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    border: 2px solid black;
+}
+.container-dropdown{
 
 }
-.flavor-selection-area{
-
-}
-.addon-selection-area{
+.container-selection{
+    margin: 0 auto;
 
 }
 .comments-group {
@@ -53,4 +61,18 @@ input::-webkit-inner-spin-button, input[type=number] {
 .submit{
     width: 12rem;
     height: 3rem;
+}
+.menu-item{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 3rem;
+    border: 3px dashed cyan;
+    border-radius: 20%;
+    overflow: clip;
+    background-color: black;
+    color: linen;
+    font-size: 3rem;
+    min-width: 30%;
+    width: 100%;
 }

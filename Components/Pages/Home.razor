@@ -1,106 +1,127 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject IItemService _itemService;
 
-<section class="banner">
-    <h1 class="title">Ice Cream of the Month</h1>
-    <p class="description">Make your selections below for you monthly dessert shipment</p>
-</section>
-<form id="survey-form">
-    <fieldset class="details-area">
-        <label id="name-label" for="name">
-            Name:
-            <input id="name" name="name" type="text" required />
-        </label>
-        <label id="email-label" for="email">
-            Email:
-            <input id="email" name="email" type="email" required />
-        </label>
-        <label id="number-label" for="number">
-            Telephone Number:
-            <input onwheel="this.blur()" id="number" name="number" type="number" required min="9" max="9" />
-        </label>
-    </fieldset>
-    <fieldset class="flavor-selection-area">
-        <div class="flavor-selector">
-            <label id="dropdown-label" for="dropdown">
-                <select id="dropdown" name="dropdown" @bind="selectedContainerType">
-                    <option value="bowl">
-                        Bowl
-                    </option>
-                    <option value="cone">
-                        Cone
-                    </option>
-                </select>
+<div class="order-screen">
+    <div class="banner">
+        <h1 class="title">Ice Cream of the Month</h1>
+        <p class="description">Make your selections below for you monthly dessert shipment</p>
+    </div>
+    <form id="survey-form">
+        <fieldset class="details-area">
+            <label id="name-label"
+                   for="name">
+                Name:
+                <input id="name"
+                       name="name"
+                       type="text"
+                       required />
             </label>
-            <label id="ice-cream-label">
-                @switch (selectedContainerType)
+            <label id="email-label"
+                   for="email">
+                Email:
+                <input id="email"
+                       name="email"
+                       type="email"
+                       required />
+            </label>
+            <label id="number-label" for="number">
+                Telephone Number:
+                <input onwheel="this.blur()"
+                       id="number"
+                       name="number"
+                       type="number"
+                       required min="9"
+                       max="9" />
+            </label>
+        </fieldset>
+        <fieldset class="flavor-selection-area">
+            <div class="menu">
+                <label class="container-label"
+                       for="container-dropdown">
+                    Choose container type:
+                    <select id="container-dropdown"
+                            name="container-dropdown"
+                            @bind="selectedMenu">
+                        <option value="bowl">
+                            Bowl
+                        </option>
+                        <option value="cone">
+                            Cone
+                        </option>
+                    </select>
+                </label>
+                @switch (selectedMenu)
                 {
-                    case "bowl":
-                        foreach (var bowl in MenuItemImageHelper.BowlImages)
-                        {
-                            <input id="@($"{MenuItemImageHelper.BowlImageNames[bowl.Key]}-radio")"
-                                   name="menu-selection"
-                                   type="radio"
-                                   value="@MenuItemImageHelper.BowlImageNames[bowl.Key]" />
-                            <img id="@MenuItemImageHelper.BowlImageNames[bowl.Key]"
-                                 name="@MenuItemImageHelper.BowlImageNames[bowl.Key]"
-                                 class="menuItemImage"
-                                 alt="@MenuItemImageHelper.BowlImageNames[bowl.Key]"
-                                 src="@MenuItemImageHelper.BowlImages[bowl.Key]" />
-                        }
-                        break;
-                    case "cone":
-                        foreach (var cone in MenuItemImageHelper.ConeImages)
-                        {
-                            <input id="@($"{MenuItemImageHelper.ConeImageNames[cone.Key]}-radio")"
-                                   name="menu-selection"
-                                   type="radio"
-                                   value="@MenuItemImageHelper.ConeImageNames[cone.Key]" />
-                            <img id="@MenuItemImageHelper.ConeImageNames[cone.Key]"
-                                 name="@MenuItemImageHelper.ConeImageNames[cone.Key]"
-                                 alt="@MenuItemImageHelper.ConeImageNames[cone.Key]"
-                                 class="menuItemImage"
-                                 src="@MenuItemImageHelper.ConeImages[cone.Key]" />
-                        }
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(selectedContainerType));
+                case "bowl":
+                order.Container = ContainerType.Bowl;
+                foreach (var bowl in MenuItemImageHelper.BowlImages)
+                {
+                var bowlId = $"{MenuItemImageHelper.BowlImageNames[bowl.Key]}-radio";
+                order.Price = _itemService.GetItemPrice(ContainerType.Bowl, bowl.Key);
+
+                <label class="menu-item"
+                       for="@bowlId">
+                    <img id="@bowlId"
+                         name="@bowlId"
+                         class="item-image"
+                         alt="@bowlId"
+                         src="@MenuItemImageHelper.BowlImages[bowl.Key]"
+                         @onclick="() => order.Flavor = bowl.Key" />
+                    @order.Price.ToString("C")
+                </label>
                 }
+                break;
+                case "cone":
+                order.Container = ContainerType.Cone;
+                foreach (var cone in MenuItemImageHelper.ConeImages)
+                {
+                var coneId = $"{MenuItemImageHelper.ConeImageNames[cone.Key]}-radio";
+                order.Price = _itemService.GetItemPrice(ContainerType.Bowl, cone.Key);
+
+                <label class="menu-item"
+                       for="@coneId">
+                    <img id="@coneId"
+                         name="@coneId"
+                         alt="@coneId"
+                         class="item-image"
+                         src="@MenuItemImageHelper.ConeImages[cone.Key]"
+                         @onclick="() => order.Flavor = cone.Key" />
+                    @order.Price.ToString("C")
+                </label>
+                }
+                break;
+                default:
+                throw new ArgumentOutOfRangeException(nameof(selectedMenu));
+                }
+            </div>
+        </fieldset>
+        <fieldset class="addon-selection-area">
+            <label id="snackfood-label">
+                <input id="potato-chips" name="potato-chips" type="checkbox" value="potatoChips" />
+                Potato Chips
+                <input id="rice-cakes" name="rice-cakes" type="checkbox" value="riceCakes" />
+                Rice Cakes
+                <input id="cookies" name="cookies" type="checkbox" value="cookies" />
+                Cookies
             </label>
-        </div>
-    </fieldset>
-    <fieldset class="addon-selection-area">
-        <label id="snackfood-label">
-            <input id="potato-chips" name="potato-chips" type="checkbox" value="potatoChips" />
-            Potato Chips
-            <input id="rice-cakes" name="rice-cakes" type="checkbox" value="riceCakes" />
-            Rice Cakes
-            <input id="cookies" name="cookies" type="checkbox" value="cookies" />
-            Cookies
-        </label>
-    </fieldset>
-    <fieldset class="comments-area">
-        <div class="comments-group">
-            <label id="comments-label" for="comments">
-                Questions/Comments:
-            </label>
-            <textarea class="comments" name="comments"></textarea>
-        </div>
-    </fieldset>
-    <fieldset>
-        <button class="submit" type="submit">Place Order</button>
-    </fieldset>
-</form>
+        </fieldset>
+        <fieldset class="comments-area">
+            <div class="comments-group">
+                <label id="comments-label" for="comments">
+                    Questions/Comments:
+                </label>
+                <textarea class="comments" name="comments"></textarea>
+            </div>
+        </fieldset>
+        <fieldset>
+            <button class="submit" type="submit">Place Order</button>
+        </fieldset>
+    </form>
+</div>
 
 @code {
-    private string selectedContainerType = "cone";
+    private string selectedMenu = "cone";
+    private IceCreamOrder order = new();
 
-    private void ParseMenuImageName()
-    {
-
-    }
-    private void HandleContainerTypeSelect()
-    {
-        StateHasChanged();
-    }
 }

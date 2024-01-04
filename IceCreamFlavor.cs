@@ -1,4 +1,4 @@
-﻿ public enum IceCreamType
+﻿ public enum IceCreamFlavor
 {
     Vanilla,
     Strawberry,

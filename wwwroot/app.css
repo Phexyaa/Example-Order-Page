@@ -4,10 +4,13 @@
     margin: 0;
 }
 
-html{
-    font-size: 62.5%
+html {
+    font-size: 62.5%;
 }
-
+body {
+    overflow: clip;
+    background-color: gray;
+}
 h1:focus {
     outline: none;
 }
