@@ -8,8 +8,8 @@ html {
     font-size: 62.5%;
 }
 body {
-    overflow: clip;
     background-color: gray;
+    font-family: "Quicksand", sans-serif;
 }
 h1:focus {
     outline: none;

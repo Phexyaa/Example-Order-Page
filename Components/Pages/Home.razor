@@ -2,12 +2,12 @@
 @rendermode InteractiveServer
 @inject IItemService _itemService;
 
-<div class="order-screen">
+<div class="">
     <div class="banner">
         <h1 class="title">Ice Cream of the Month</h1>
         <p class="description">Make your selections below for you monthly dessert shipment</p>
     </div>
-    <form id="survey-form">
+    <form class="order-form">
         <fieldset class="details-area">
             <label id="name-label"
                    for="name">
@@ -36,76 +36,76 @@
             </label>
         </fieldset>
         <fieldset class="flavor-selection-area">
+            <label class="container-label"
+                   for="container-dropdown">
+                Container Type:
+                <select class="container-dropdown"
+                        name="container-dropdown"
+                        @bind="selectedMenu">
+                    <option value="bowl">
+                        Bowl
+                    </option>
+                    <option value="cone">
+                        Cone
+                    </option>
+                </select>
+            </label>
             <div class="menu">
-                <label class="container-label"
-                       for="container-dropdown">
-                    Choose container type:
-                    <select id="container-dropdown"
-                            name="container-dropdown"
-                            @bind="selectedMenu">
-                        <option value="bowl">
-                            Bowl
-                        </option>
-                        <option value="cone">
-                            Cone
-                        </option>
-                    </select>
-                </label>
                 @switch (selectedMenu)
                 {
-                case "bowl":
-                order.Container = ContainerType.Bowl;
-                foreach (var bowl in MenuItemImageHelper.BowlImages)
-                {
-                var bowlId = $"{MenuItemImageHelper.BowlImageNames[bowl.Key]}-radio";
-                order.Price = _itemService.GetItemPrice(ContainerType.Bowl, bowl.Key);
+                    case "bowl":
+                        order.Container = ContainerType.Bowl;
+                        foreach (var bowl in MenuItemImageHelper.BowlImages)
+                        {
+                            var bowlId = $"{MenuItemImageHelper.BowlImageNames[bowl.Key]}-radio";
+                            order.Price = _itemService.GetItemPrice(ContainerType.Bowl, bowl.Key);
 
-                <label class="menu-item"
-                       for="@bowlId">
-                    <img id="@bowlId"
-                         name="@bowlId"
-                         class="item-image"
-                         alt="@bowlId"
-                         src="@MenuItemImageHelper.BowlImages[bowl.Key]"
-                         @onclick="() => order.Flavor = bowl.Key" />
-                    @order.Price.ToString("C")
-                </label>
-                }
-                break;
-                case "cone":
-                order.Container = ContainerType.Cone;
-                foreach (var cone in MenuItemImageHelper.ConeImages)
-                {
-                var coneId = $"{MenuItemImageHelper.ConeImageNames[cone.Key]}-radio";
-                order.Price = _itemService.GetItemPrice(ContainerType.Bowl, cone.Key);
+                            <label class="menu-item"
+                                   for="@bowlId">
+                                <img id="@bowlId"
+                                     name="@bowlId"
+                                     class="item-image"
+                                     alt="@bowlId"
+                                     src="@MenuItemImageHelper.BowlImages[bowl.Key]" />
+                                <div class="item-price-div">
+                                    @order.Price.ToString("C")
+                                    <button id="add-cart-button"
+                                            class="add-cart-button">
+                                        <img src="Images/cart-plus.svg" alt="add to cart" />
+                                    </button>
+                                </div>
+                            </label>
+                        }
+                        break;
+                    case "cone":
+                        order.Container = ContainerType.Cone;
+                        foreach (var cone in MenuItemImageHelper.ConeImages)
+                        {
+                            var coneId = $"{MenuItemImageHelper.ConeImageNames[cone.Key]}-radio";
+                            order.Price = _itemService.GetItemPrice(ContainerType.Bowl, cone.Key);
 
-                <label class="menu-item"
-                       for="@coneId">
-                    <img id="@coneId"
-                         name="@coneId"
-                         alt="@coneId"
-                         class="item-image"
-                         src="@MenuItemImageHelper.ConeImages[cone.Key]"
-                         @onclick="() => order.Flavor = cone.Key" />
-                    @order.Price.ToString("C")
-                </label>
-                }
-                break;
-                default:
-                throw new ArgumentOutOfRangeException(nameof(selectedMenu));
+                            <label class="menu-item"
+                                   for="@coneId">
+                                <img id="@coneId"
+                                     name="@coneId"
+                                     alt="@coneId"
+                                     class="item-image"
+                                     src="@MenuItemImageHelper.ConeImages[cone.Key]" />
+                                <div class="item-price-div">
+                                    @order.Price.ToString("C")
+                                    <button id="add-cart-button"
+                                            class="add-cart-button">
+                                        <img src="Images/cart-plus.svg" alt="add to cart" />
+                                    </button>
+                                </div>
+                            </label>
+                        }
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(selectedMenu));
                 }
             </div>
-        </fieldset>
-        <fieldset class="addon-selection-area">
-            <label id="snackfood-label">
-                <input id="potato-chips" name="potato-chips" type="checkbox" value="potatoChips" />
-                Potato Chips
-                <input id="rice-cakes" name="rice-cakes" type="checkbox" value="riceCakes" />
-                Rice Cakes
-                <input id="cookies" name="cookies" type="checkbox" value="cookies" />
-                Cookies
-            </label>
-        </fieldset>
+        </fieldset>        
         <fieldset class="comments-area">
             <div class="comments-group">
                 <label id="comments-label" for="comments">
@@ -124,4 +124,8 @@
     private string selectedMenu = "cone";
     private IceCreamOrder order = new();
 
+    private void HandleMenuSelect(ContainerType container, IceCreamFlavor flavor)
+    {
+
+    }
 }
