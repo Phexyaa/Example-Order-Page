@@ -1,1 +1,1 @@
-# Simple-Survey
+# Example Ice Cream Ordering Web Page
