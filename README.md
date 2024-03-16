@@ -1,2 +1,2 @@
-# Example Ice Cream Ordering Web Page
-Original concept is from [freeCodeCamp.Org](https://www.freecodecamp.org)
+# <p align=center>Example Ice Cream Ordering Web Page</p>
+![](Menu_Selection_Website.png?raw=true)
